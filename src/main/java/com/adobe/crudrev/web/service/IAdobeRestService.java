@@ -12,9 +12,9 @@ public interface IAdobeRestService {
 
 	public String updateCustomer(Customer customerForm);
 
-	public String deleteCustomerById(String name);
+	public String deleteCustomerById(int name);
 
-	public Customer findCustomerById(String id);
+	public Customer findCustomerById(int id);
 
 	public boolean isCustomerExist(Customer customer);
 

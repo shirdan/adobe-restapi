@@ -14,7 +14,7 @@ public class Customer implements  Serializable {
 	private static final long serialVersionUID = -4337348719461923745L;
 
 	@JsonProperty
-	private String cust_id;
+	private int cust_id;
 	
 	@JsonProperty
 	private String firstName;
@@ -40,11 +40,11 @@ public class Customer implements  Serializable {
 	@JsonProperty
 	private Date created_at;
 
-	public String getCust_id() {
+	public int getCust_id() {
 		return cust_id;
 	}
 
-	public void setCust_id(String cust_id) {
+	public void setCust_id(int cust_id) {
 		this.cust_id = cust_id;
 	}
 
@@ -124,7 +124,7 @@ public class Customer implements  Serializable {
 		result = prime * result + age;
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
 		result = prime * result + ((created_at == null) ? 0 : created_at.hashCode());
-		result = prime * result + ((cust_id == null) ? 0 : cust_id.hashCode());
+		result = prime * result + ((cust_id == 0) ? 0 : cust_id);
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
@@ -158,10 +158,10 @@ public class Customer implements  Serializable {
 				return false;
 		} else if (!created_at.equals(other.created_at))
 			return false;
-		if (cust_id == null) {
-			if (other.cust_id != null)
+		if (cust_id == 0) {
+			if (other.cust_id != 0)
 				return false;
-		} else if (!cust_id.equals(other.cust_id))
+		} else if ( cust_id != other.cust_id )
 			return false;
 		if (email == null) {
 			if (other.email != null)

@@ -43,7 +43,7 @@ public class AdobeDaoImpl extends JdbcDaoSupport implements IAdobeRestDao {
 							          customerEntity.getAddress()};
 		
 		
-		int dataTye[] = new int[] { Types.VARCHAR, 
+		int dataTye[] = new int[] { Types.INTEGER, 
 									Types.VARCHAR, 
 									Types.VARCHAR, 
 									Types.INTEGER,
@@ -64,8 +64,7 @@ public class AdobeDaoImpl extends JdbcDaoSupport implements IAdobeRestDao {
 
 	@Override
 	public String updateCustomer(CustomerEntity customerEntity) {
-		Object data[] = new Object[] {customerEntity.getId(),
-				  customerEntity.getFirstName(),
+		Object data[] = new Object[] {customerEntity.getFirstName(),
 		          customerEntity.getLastName(),
 		          customerEntity.getAge(),
 		          customerEntity.getEmail(),
@@ -75,8 +74,7 @@ public class AdobeDaoImpl extends JdbcDaoSupport implements IAdobeRestDao {
 		          customerEntity.getAddress()};
 
 
-				int dataTye[] = new int[] { Types.VARCHAR, 
-								Types.VARCHAR, 
+				int dataTye[] = new int[] {  Types.VARCHAR, 
 								Types.VARCHAR, 
 								Types.INTEGER,
 								Types.VARCHAR, 
@@ -85,8 +83,8 @@ public class AdobeDaoImpl extends JdbcDaoSupport implements IAdobeRestDao {
 								Types.DATE,
 								Types.VARCHAR};
 		
-		String query = "UPDATE customer_tbl SET cust_id=?,firstName=?,lastName=?,age=?,email=?,,country=?,phoneNumber=?,created_at=?,address=?"
-						+ "WHERE cust_id=?";
+		String query = "UPDATE customer_tbl SET firstName=?,lastName=?,age=?,email=?,country=?,phoneNumber=?,created_at=?,address=? "
+						+ "WHERE cust_id="+customerEntity.getId();
 		
 		super.getJdbcTemplate().update(query, data, dataTye);
 		return "SUCCESS";
@@ -95,10 +93,10 @@ public class AdobeDaoImpl extends JdbcDaoSupport implements IAdobeRestDao {
 
 
 	@Override
-	public String deleteCustomerById(String cust_id) {
+	public String deleteCustomerById(int cust_id) {
 		String query = "DELETE a" + 
 						"      FROM customer_tbl a" + 
-						" WHERE a.cust_id ='"+cust_id+"'";
+						" WHERE a.cust_id ="+cust_id;
 		
 		super.getJdbcTemplate().update(query);
 		return "SUCCESS";
@@ -107,7 +105,7 @@ public class AdobeDaoImpl extends JdbcDaoSupport implements IAdobeRestDao {
 
 
 	@Override
-	public CustomerEntity findCustomerById(String cust_id) {
+	public CustomerEntity findCustomerById(int cust_id) {
 		CustomerEntity customerEntity = null;
 		String sql = "SELECT * from customer_tbl a WHERE a.cust_id = ?";
 		try {

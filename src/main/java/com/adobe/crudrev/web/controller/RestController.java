@@ -39,7 +39,7 @@ public class RestController {
 	@RequestMapping(value = "/customer/get/{cust_id}", method = RequestMethod.GET)
 	public ResponseEntity<?> fetchCustomer(@PathVariable("cust_id") String cust_id) {
 		logger.info("Fetching Customer with id {}"+cust_id);
-		Customer customer = adobeRestService.findCustomerById(cust_id);
+		Customer customer = adobeRestService.findCustomerById(Integer.parseInt(cust_id));
         if (customer.getFirstName() == null) {
             logger.error("Customer with id {} not found."+cust_id);
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
@@ -68,13 +68,15 @@ public class RestController {
 	@RequestMapping(value = "/customer/put/{cust_id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateCustomer(@PathVariable("cust_id") String cust_id, @RequestBody Customer customer) {
 	    logger.info("Updating Customer with id {}"+cust_id);
-	    Customer customerU = adobeRestService.findCustomerById(cust_id);
-        if (customerU.getCust_id() == null) {
+	    Customer customerU = adobeRestService.findCustomerById(Integer.parseInt(cust_id));
+        if ( customerU.getLastName() == null ) {
             logger.error("Customer with id {} not found."+cust_id);
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
         }
-        adobeRestService.updateCustomer(customerU);
-        return new ResponseEntity<Customer>(customerU, HttpStatus.OK);
+        
+        customerU.setCust_id(Integer.parseInt(cust_id));
+        adobeRestService.updateCustomer(customer);
+        return new ResponseEntity<Customer>(HttpStatus.OK);
 
 	}
 
@@ -82,13 +84,13 @@ public class RestController {
 	@RequestMapping(value = "/customer/delete/{cust_id}", method = RequestMethod.DELETE )
 	public ResponseEntity<?> deleteCustomer(@PathVariable("cust_id") String cust_id) {
 		logger.info("Deleting Customer with id {}"+cust_id);
-		Customer customerD = adobeRestService.findCustomerById(cust_id);
-		if (customerD.getFirstName() == null) {
+		Customer customerD = adobeRestService.findCustomerById(Integer.parseInt(cust_id));
+		if (customerD.getLastName() == null) {
             logger.error("Customer with id {} not found."+cust_id);
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
         }
  
-		adobeRestService.deleteCustomerById(cust_id);
+		adobeRestService.deleteCustomerById(Integer.parseInt(cust_id));
         return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
 	}
 

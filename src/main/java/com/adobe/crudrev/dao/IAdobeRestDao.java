@@ -11,8 +11,8 @@ public interface IAdobeRestDao {
 
 	public String updateCustomer(CustomerEntity customerForm);
 
-	public String deleteCustomerById(String cust_id);
+	public String deleteCustomerById(int cust_id);
 
-	public CustomerEntity findCustomerById(String id);
+	public CustomerEntity findCustomerById(int id);
 
 }

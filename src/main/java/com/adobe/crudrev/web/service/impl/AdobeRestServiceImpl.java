@@ -51,12 +51,12 @@ public class AdobeRestServiceImpl implements IAdobeRestService {
 	}
 
 	@Override
-	public String deleteCustomerById(String cust_id) {
+	public String deleteCustomerById(int cust_id) {
 		return adoberestDao.deleteCustomerById(cust_id);
 	}
 
 	@Override
-	public Customer findCustomerById(String cust_id) {
+	public Customer findCustomerById(int cust_id) {
 		CustomerEntity customerEntity = adoberestDao.findCustomerById(cust_id);
 		Customer customerForm = new Customer();
 		if (null != customerEntity) {
@@ -76,7 +76,7 @@ public class AdobeRestServiceImpl implements IAdobeRestService {
 	@Override
 	public boolean isCustomerExist(Customer customer) {
 		 Customer cust = findCustomerById(customer.getCust_id());
-		 return cust.getCust_id() != null;
+		 return cust.getCust_id() != 0;
 	}
 
 }
